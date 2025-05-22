@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace Project_PBO
 {
-    public partial class UserDashboard : Form
+    public partial class SewaKendaraan: Form
     {
-        public UserDashboard()
+        public SewaKendaraan()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

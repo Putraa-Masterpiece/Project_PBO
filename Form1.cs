@@ -33,7 +33,7 @@ namespace Project_PBO
                     string username = txtUsername.Text;
                     string password = txtPassword.Text;
 
-                    string query = "SELECT role FROM users WHERE username = @username AND password = @password";
+                    string query = "SELECT role FROM pengguna WHERE username = @username AND password = @password";
 
                     using (var cmd = new NpgsqlCommand(query, conn))
                     {
@@ -47,12 +47,12 @@ namespace Project_PBO
                             string role = roleObj.ToString();
                             MessageBox.Show("Login berhasil sebagai " + role + "!");
 
-                            if (role == "Admin")
+                            if (role == "admin")
                             {
                                 AdminDashboard admin = new AdminDashboard();
                                 admin.Show();
                             }
-                            else if (role == "User")
+                            else if (role == "user")
                             {
                                 UserDashboard user = new UserDashboard();
                                 user.Show();
