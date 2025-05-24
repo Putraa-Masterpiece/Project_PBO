@@ -50,6 +50,7 @@
             datePengembalian = new DateTimePicker();
             label4 = new Label();
             checkSupir = new CheckBox();
+            btnKembali = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridMobil).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridSupir).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDurasi).BeginInit();
@@ -251,11 +252,22 @@
             checkSupir.UseVisualStyleBackColor = true;
             checkSupir.CheckedChanged += checkSupir_CheckedChanged_1;
             // 
+            // btnKembali
+            // 
+            btnKembali.Location = new Point(835, 471);
+            btnKembali.Name = "btnKembali";
+            btnKembali.Size = new Size(109, 31);
+            btnKembali.TabIndex = 25;
+            btnKembali.Text = "Kembali";
+            btnKembali.UseVisualStyleBackColor = true;
+            btnKembali.Click += btnKembali_Click;
+            // 
             // SewaKendaraan
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1003, 530);
+            Controls.Add(btnKembali);
             Controls.Add(checkSupir);
             Controls.Add(label4);
             Controls.Add(datePengembalian);
@@ -312,5 +324,6 @@
         private DateTimePicker datePengembalian;
         private Label label4;
         private CheckBox checkSupir;
+        private Button btnKembali;
     }
 }

@@ -33,5 +33,12 @@ namespace Project_PBO
             sewaKendaraan.Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ProfilUser profil = new ProfilUser();
+            profil.ShowDialog();
+            this.Hide();
+        }
     }
 }
