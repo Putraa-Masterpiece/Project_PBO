@@ -1,4 +1,6 @@
 ﻿using Npgsql;
+using Project_PBO.Controller.Admin;
+using Project_PBO.Model.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,9 @@ namespace Project_PBO
 {
     public partial class KelolaKendaraan : Form
     {
+        private KelolaKendaraanController controller = new KelolaKendaraanController();
+
+
         string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=12345;Database=project_pbo";
         int selectedId = -1;
         public KelolaKendaraan()
@@ -36,17 +41,7 @@ namespace Project_PBO
 
         private void LoadData()
         {
-            using (var conn = new NpgsqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "SELECT * FROM mobil ORDER BY id_mobil";
-                using (var da = new NpgsqlDataAdapter(query, conn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridKendaraan.DataSource = dt;
-                }
-            }
+            dataGridKendaraan.DataSource = controller.GetAllMobil();
         }
 
         private void ClearForm()
@@ -61,26 +56,20 @@ namespace Project_PBO
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            using (var conn = new NpgsqlConnection(connectionString))
+            var mobil = new Mobil
             {
-                conn.Open();
-                string query = "INSERT INTO mobil (merek, tipe, kapasitas_penumpang, harga, status_ketersediaan) " +
-                               "VALUES (@merek, @tipe, @kapasitas, @harga, @status)";
+                merek = txtMerek.Text,
+                tipe = txtTipe.Text,
+                kapasitas_penumpang = (int)numKapasitas.Value,
+                harga = Convert.ToDecimal(txtHarga.Text),
+                status_ketersediaan = comboStatus.SelectedItem.ToString()
+            };
 
-                using (var cmd = new NpgsqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("merek", txtMerek.Text);
-                    cmd.Parameters.AddWithValue("tipe", txtTipe.Text);
-                    cmd.Parameters.AddWithValue("kapasitas", (int)numKapasitas.Value);
-                    cmd.Parameters.AddWithValue("harga", Convert.ToDecimal(txtHarga.Text));
-                    cmd.Parameters.AddWithValue("status", comboStatus.SelectedItem.ToString());
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
+            controller.InsertMobil(mobil);
             LoadData();
             ClearForm();
-            MessageBox.Show("Data kendaraan berhasil disimpan.");
+            MessageBox.Show("Data kendaraan berhasil disimpan."); ;
+
         }
 
         private void dataGridKendaraan_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -99,7 +88,7 @@ namespace Project_PBO
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            
+
 
 
         }
@@ -176,6 +165,13 @@ namespace Project_PBO
             LoadData();
             ClearForm();
             MessageBox.Show("Data kendaraan berhasil diperbarui.");
+        }
+
+        private void btnKembali_Click(object sender, EventArgs e)
+        {
+            AdminDashboard dashboard = new AdminDashboard();
+            dashboard.Show();
+            this.Hide();
         }
     }
 }

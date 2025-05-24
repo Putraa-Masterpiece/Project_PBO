@@ -38,6 +38,7 @@
             btnEdit = new Button();
             btnHapus = new Button();
             btnClear = new Button();
+            btnKembali = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridSupir).BeginInit();
             SuspendLayout();
             // 
@@ -134,11 +135,22 @@
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click_1;
             // 
+            // btnKembali
+            // 
+            btnKembali.Location = new Point(87, 342);
+            btnKembali.Name = "btnKembali";
+            btnKembali.Size = new Size(112, 34);
+            btnKembali.TabIndex = 18;
+            btnKembali.Text = "Kembali";
+            btnKembali.UseVisualStyleBackColor = true;
+            btnKembali.Click += btnKembali_Click;
+            // 
             // DataSupircs
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnKembali);
             Controls.Add(btnSimpan);
             Controls.Add(btnEdit);
             Controls.Add(btnHapus);
@@ -169,5 +181,6 @@
         private Button btnEdit;
         private Button btnHapus;
         private Button btnClear;
+        private Button btnKembali;
     }
 }

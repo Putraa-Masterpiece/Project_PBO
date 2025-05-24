@@ -30,5 +30,12 @@ namespace Project_PBO
             dataSupir.Show();
             this.Hide();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Transaksi transaksi = new Transaksi();
+            transaksi.Show();
+            this.Hide();
+        }
     }
 }

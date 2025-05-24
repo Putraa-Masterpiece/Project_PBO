@@ -44,6 +44,7 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            btnKembali = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridKendaraan).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numKapasitas).BeginInit();
             SuspendLayout();
@@ -189,11 +190,22 @@
             label6.TabIndex = 18;
             label6.Text = "Status Ketersediaan";
             // 
+            // btnKembali
+            // 
+            btnKembali.Location = new Point(115, 365);
+            btnKembali.Name = "btnKembali";
+            btnKembali.Size = new Size(112, 34);
+            btnKembali.TabIndex = 19;
+            btnKembali.Text = "Kembali";
+            btnKembali.UseVisualStyleBackColor = true;
+            btnKembali.Click += btnKembali_Click;
+            // 
             // KelolaKendaraan
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnKembali);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -237,5 +249,6 @@
         private Label label4;
         private Label label5;
         private Label label6;
+        private Button btnKembali;
     }
 }

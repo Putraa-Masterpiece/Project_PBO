@@ -181,5 +181,12 @@ namespace Project_PBO
         {
             ClearForm();
         }
+
+        private void btnKembali_Click(object sender, EventArgs e)
+        {
+            AdminDashboard dashboard = new AdminDashboard();
+            dashboard.Show();
+            this.Hide();
+        }
     }
 }

@@ -1,4 +1,5 @@
 using Npgsql;
+using Project_PBO.Model;
 using System;
 using System.Windows.Forms;
 
@@ -24,51 +25,61 @@ namespace Project_PBO
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Harap isi username dan password!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-
-                    string username = txtUsername.Text;
-                    string password = txtPassword.Text;
-
-                    string query = "SELECT role FROM pengguna WHERE username = @username AND password = @password";
-
+                    string query = "SELECT id_user, username, password, role FROM pengguna WHERE username = @username AND password = @password";
                     using (var cmd = new NpgsqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("username", username);
                         cmd.Parameters.AddWithValue("password", password);
 
-                        var roleObj = cmd.ExecuteScalar();
-
-                        if (roleObj != null)
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            string role = roleObj.ToString();
-                            MessageBox.Show("Login berhasil sebagai " + role + "!");
-
-                            if (role == "admin")
+                            if (reader.Read())
                             {
-                                AdminDashboard admin = new AdminDashboard();
-                                admin.Show();
-                            }
-                            else if (role == "user")
-                            {
-                                UserDashboard user = new UserDashboard();
-                                user.Show();
-                            }
+                                // Simpan ke session
+                                Session.UserId = reader.GetInt32(0); // id_pengguna
+                                Session.Username = reader.GetString(1);
+                                Session.Role = reader.GetString(3);
 
-                            this.Hide();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Login gagal: Username atau password salah.");
+                                MessageBox.Show("Login berhasil!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                // Pindah ke dashboard sesuai role
+                                if (Session.Role == "admin")
+                                {
+                                    AdminDashboard admin = new AdminDashboard();
+                                    admin.Show();
+                                }
+                                else
+                                {
+                                    UserDashboard user = new UserDashboard();
+                                    user.Show();
+                                }
+
+                                this.Hide(); // Sembunyikan form login
+                            }
+                            else
+                            {
+                                MessageBox.Show("Username atau password salah!", "Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Koneksi gagal: " + ex.Message);
+                    MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

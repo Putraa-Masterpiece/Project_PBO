@@ -26,5 +26,12 @@ namespace Project_PBO
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SewaKendaraan sewaKendaraan = new SewaKendaraan();
+            sewaKendaraan.Show();
+            this.Hide();
+        }
     }
 }

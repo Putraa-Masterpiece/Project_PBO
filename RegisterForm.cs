@@ -34,11 +34,16 @@ namespace Project_PBO
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string email = txtEmail.Text.Trim();
+            string noTelepon = txtNoTelepon.Text.Trim();
+            string nik = txtNIK.Text.Trim();
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
             string role = comboBoxRole.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(noTelepon) ||
+                string.IsNullOrEmpty(nik) || string.IsNullOrEmpty(username) ||
+                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role))
             {
                 MessageBox.Show("Semua field harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -50,8 +55,8 @@ namespace Project_PBO
                 {
                     conn.Open();
 
-                    // Cek apakah username sudah terdaftar
-                    string checkQuery = "SELECT COUNT(*) FROM users WHERE username = @username";
+                    // Cek apakah username sudah ada
+                    string checkQuery = "SELECT COUNT(*) FROM pengguna WHERE username = @username";
                     using (var checkCmd = new NpgsqlCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("username", username);
@@ -64,13 +69,17 @@ namespace Project_PBO
                         }
                     }
 
-                    // Insert user baru
-                    string query = "INSERT INTO users (username, password, role) VALUES (@username, @password, @role)";
+                    // Insert ke tabel users
+                    string query = @"INSERT INTO pengguna (username, password, role, email, nomer_telepon, nik)
+                                     VALUES (@username, @password, @role, @email, @no_telepon, @nik)";
                     using (var cmd = new NpgsqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("username", username);
                         cmd.Parameters.AddWithValue("password", password);
                         cmd.Parameters.AddWithValue("role", role);
+                        cmd.Parameters.AddWithValue("email", email);
+                        cmd.Parameters.AddWithValue("no_telepon", noTelepon);
+                        cmd.Parameters.AddWithValue("nik", nik);
 
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Registrasi berhasil!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
