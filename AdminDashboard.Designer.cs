@@ -81,7 +81,7 @@
             button5.Name = "button5";
             button5.Size = new Size(112, 34);
             button5.TabIndex = 5;
-            button5.Text = "button5";
+            button5.Text = "Denda";
             button5.UseVisualStyleBackColor = true;
             // 
             // button6
@@ -90,8 +90,9 @@
             button6.Name = "button6";
             button6.Size = new Size(112, 34);
             button6.TabIndex = 6;
-            button6.Text = "button6";
+            button6.Text = "Logout";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // AdminDashboard
             // 

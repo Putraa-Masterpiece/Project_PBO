@@ -79,6 +79,7 @@
             button5.TabIndex = 4;
             button5.Text = "Logout";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // button4
             // 
@@ -97,6 +98,7 @@
             button3.TabIndex = 2;
             button3.Text = "Pengembalian";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 

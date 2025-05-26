@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_PBO.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,19 @@ namespace Project_PBO
             Transaksi transaksi = new Transaksi();
             transaksi.Show();
             this.Hide();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Hapus sesi user yang sedang login
+            Session.UserId = null;
+
+            // Tampilkan form login kembali
+            Form1 loginForm = new Form1();
+            loginForm.Show();
+
+            // Tutup form saat ini
+            this.Close();
         }
     }
 }
