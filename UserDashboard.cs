@@ -61,5 +61,12 @@ namespace Project_PBO
             pengembalian.Show();
             this.Hide();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            RiwayatPengembalian riwayatPengembalian = new RiwayatPengembalian();
+            riwayatPengembalian.Show();
+            this.Hide();
+        }
     }
 }

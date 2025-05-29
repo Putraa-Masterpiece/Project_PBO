@@ -51,5 +51,12 @@ namespace Project_PBO
             // Tutup form saat ini
             this.Close();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DendaPengguna dendaPengguna = new DendaPengguna();
+            dendaPengguna.Show();
+            this.Hide();
+        }
     }
 }

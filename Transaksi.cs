@@ -29,7 +29,24 @@ namespace Project_PBO
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT * FROM sewa ORDER BY id_sewa";
+                string query = @"
+SELECT 
+    sewa.id_sewa,
+    sewa.id_user,
+    sewa.id_mobil,
+    sewa.id_supir,
+    sewa.durasi_peminjaman,
+    sewa.tanggal_peminjaman,
+    sewa.total_harga,
+    sewa.dengan_supir,
+    pengembalian.tanggal_pengembalian
+FROM 
+    sewa
+LEFT JOIN 
+    pengembalian ON sewa.id_sewa = pengembalian.id_sewa
+ORDER BY 
+    sewa.id_sewa";
+
                 using (var da = new NpgsqlDataAdapter(query, conn))
                 {
                     DataTable dt = new DataTable();
